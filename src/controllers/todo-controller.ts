@@ -1,6 +1,7 @@
 import { NextFunction, Response } from "express"
 import { UserRequest } from "../models/user-request-model"
 import { TodoService } from "../services/todo-service"
+import { TodoCreateUpdateRequest } from "../models/todo-model"
 
 export class TodoController {
     static async getAllTodos(

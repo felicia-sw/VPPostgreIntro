@@ -1,5 +1,5 @@
 import { string } from "zod"
-import { generateToken } from "../utils/jwt-utils"
+import { generateToken } from "../utils/jwt-util"
 
 export interface UserJWTPayload {
     id: number
