@@ -8,28 +8,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  username String @db.VarChar(100)
-  email    String @unique @db.VarChar(150)
-  password String @db.VarChar(100)
+model Customer {
+  id          Int      @id @default(autoincrement())
+  name        String
+  phoneNumber String
+  orders      Order[]
 
-  todos Todo[]
-
-  @@map("users")
+  @@map("customers")
 }
 
-model Todo {
-  id          Int    @id @default(autoincrement())
-  title       String @db.VarChar(100)
-  description String @db.Text
-  priority    String @db.VarChar(10)
-  due_date    String @db.VarChar(100)
-  status      String @db.VarChar(20)
+model Restaurant {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  isOpen      Boolean  @default(true) // Handles "opened/closed" status
+  orders      Order[]
 
-  user_id Int
+  @@map("restaurantsyb")
+}
 
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+// This is the pivot table linking Customer and Restaurant
+model Order {
+  id           Int      @id @default(autoincrement())
+  orderTime    DateTime @default(now())
+  itemCount    Int      // "Items only need to be amount of item"
+  eta          Int      // Estimated Time of Arrival in minutes
+  
+  // Foreign Keys
+  customerId   Int
+  restaurantId Int
+  
+  customer     Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
-  @@map("todos")
+  @@map("orders")
 }
