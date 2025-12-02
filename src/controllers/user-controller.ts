@@ -1,39 +1,39 @@
-import { Request, Response, NextFunction } from "express"
-import {
-    LoginUserRequest,
-    RegisterUserRequest,
-    UserResponse,
-} from "../models/user-model"
-import { UserService } from "../services/user-service"
+// import { Request, Response, NextFunction } from "express"
+// import {
+//     LoginUserRequest,
+//     RegisterUserRequest,
+//     UserResponse,
+// } from "../models/user-model"
+// import { UserService } from "../services/user-service"
 
-export class UserController {
-    static async register(req: Request, res: Response, next: NextFunction) {
-        try {
-            const request: RegisterUserRequest = req.body as RegisterUserRequest
-            const response: UserResponse = await UserService.register(request)
+// export class UserController {
+//     static async register(req: Request, res: Response, next: NextFunction) {
+//         try {
+//             const request: RegisterUserRequest = req.body as RegisterUserRequest
+//             const response: UserResponse = await UserService.register(request)
 
-            res.status(200).json({
-                data: response,
-            })
-        } catch (error) {
-            next(error)
-        }
-    }
+//             res.status(200).json({
+//                 data: response,
+//             })
+//         } catch (error) {
+//             next(error)
+//         }
+//     }
 
-    static async login(req: Request, res: Response, next: NextFunction) {
-        try {
-            const request: LoginUserRequest = req.body as LoginUserRequest
-            const response: UserResponse = await UserService.login(request)
+//     static async login(req: Request, res: Response, next: NextFunction) {
+//         try {
+//             const request: LoginUserRequest = req.body as LoginUserRequest
+//             const response: UserResponse = await UserService.login(request)
 
-            // buat logic nya disini -- kalo ga mau bikin file service" segala macam, tapi kalo pake service lebih rapi
+//             // buat logic nya disini -- kalo ga mau bikin file service" segala macam, tapi kalo pake service lebih rapi
 
-            res.status(200).json({
-                data: response,
-            })
-        } catch (error) {
-            next(error)
-        }
-    }
-}
+//             res.status(200).json({
+//                 data: response,
+//             })
+//         } catch (error) {
+//             next(error)
+//         }
+//     }
+// }
 
 
