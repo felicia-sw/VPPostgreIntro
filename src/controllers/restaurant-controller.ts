@@ -6,7 +6,17 @@ export class RestaurantController {
 
     static async getAllRestaurants(req: Request, res: Response, next: NextFunction) {
         try {
-            const response = await RestaurantService.getAll();
+            // 1. Read the query parameter 'isOpen'
+            // It comes as a string ("true"/"false"), so we convert it to boolean
+            let isOpen: boolean | undefined = undefined;
+            if (req.query.isOpen === 'true') {
+                isOpen = true;
+            } else if (req.query.isOpen === 'false') {
+                isOpen = false;
+            }
+
+            // 2. Pass it to the service
+            const response = await RestaurantService.getAll(isOpen);
 
             res.status(200).json({
                 data: response,

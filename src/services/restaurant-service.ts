@@ -6,9 +6,13 @@ import { Validation } from "../validations/validation";
 import { ResponseError } from "../error/response-error";
 
 export class RestaurantService {
-    static async getAll(): Promise<RestaurantResponse[]> {
+    static async getAll(isOpen?: boolean): Promise<RestaurantResponse[]> {
         //  fetch all rows from restaurant table
-        const restaurants = await prismaClient.restaurant.findMany();
+        const restaurants = await prismaClient.restaurant.findMany({
+            where: {
+                isOpen: isOpen
+            }
+        });
         return toRestaurantResponseList(restaurants);
     }
 
